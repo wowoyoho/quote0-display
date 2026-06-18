@@ -31,11 +31,35 @@ WHITE = 255
 
 # ── Font loading ──────────────────────────────────────────────────────────────
 
+import platform as _platform
+
 _HERE        = Path(__file__).parent
 _PIXEL_FONT  = _HERE / "assets" / "fonts" / "PixelOperator.ttf"
 _VCR_FONT    = _HERE / "assets" / "fonts" / "VCR_OSD_MONO_1.001.ttf"
 _TINY_FONT   = _HERE / "assets" / "fonts" / "Minecraftia-Regular.ttf"
-_SYS_FONT    = "/System/Library/Fonts/Menlo.ttc"
+
+def _system_font() -> str:
+    """Return a monospace system font path for the current OS."""
+    _sys = _platform.system()
+    if _sys == "Darwin":
+        return "/System/Library/Fonts/Menlo.ttc"
+    if _sys == "Windows":
+        # Consolas preferred; fall back to Courier New
+        for p in [r"C:\Windows\Fonts\consola.ttf", r"C:\Windows\Fonts\cour.ttf"]:
+            if Path(p).exists():
+                return p
+        return r"C:\Windows\Fonts\cour.ttf"
+    # Linux
+    for p in [
+        "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+        "/usr/share/fonts/truetype/ubuntu/UbuntuMono-R.ttf",
+    ]:
+        if Path(p).exists():
+            return p
+    return "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
+
+_SYS_FONT = _system_font()
 
 _fc: dict = {}
 
