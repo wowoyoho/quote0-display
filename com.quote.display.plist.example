@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.quote.display</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/Users/websterding/Documents/quote/display.py</string>
+    </array>
+
+    <!-- Run every 10 minutes -->
+    <key>StartInterval</key>
+    <integer>600</integer>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>QUOTE0_API_KEY</key>
+        <string>REPLACE_ME</string>
+        <key>QUOTE0_DEVICE_ID</key>
+        <string>REPLACE_ME</string>
+        <key>QUOTE0_REFRESH_NOW</key>
+        <string>false</string>
+        <!-- Optional: add DEEPSEEK_API_KEY here if you want DeepSeek balance -->
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/quote_display.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/quote_display.err</string>
+
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
